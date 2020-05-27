@@ -41,8 +41,12 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
+            Controller\IndexController::class => function($sm) { 
+                ​​​$usersService = $sm->get("Application\Model\UsersTable");
+                ​​​return new Controller\IndexController($usersService);
+            }
         ],
+
     ],
     'view_manager' => [
         'display_not_found_reason' => true,
@@ -59,5 +63,6 @@ return [
         'template_path_stack' => [
             __DIR__ . '/../view',
         ],
+        'base_path' => '/'
     ],
 ];
