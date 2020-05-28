@@ -10,7 +10,12 @@ class UsersTable{
     {
         $this->tableGateway = $tableGateway;
     }
+    public function getAll()
+    {
+        $result = $this->tableGateway->select();
 
+        return $result;
+    }
     public function getById($id)
     {
         $id = (int)$id;

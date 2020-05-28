@@ -37,6 +37,16 @@ return [
                     ],
                 ],
             ],
+            'users'=>[
+                'type'=> Segment::class,
+                'options' => [
+                    'route' => '/users/[/:action[/:id]]',
+                    'defaults'=>[
+                        'controller'=> Controller\UsersController::class,
+                        'action' => 'index'
+                    ]
+                ]
+            ],
         ],
     ],
     'controllers' => [
@@ -45,6 +55,10 @@ return [
                 $usersService = $sm->get('Application\Model\UsersTable');
                 return new Controller\IndexController($usersService);
             },
+            Controller\UsersController::class => function($sm){
+                $postService = $sm->get('Application\Model\UsersTable');
+                return new Controller\UsersController($postService);
+            }
         ],
     ],
     'view_manager' => [
