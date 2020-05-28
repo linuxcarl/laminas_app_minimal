@@ -12,8 +12,8 @@
                 <td><?= $user->getId() ?></td> ​​​
                 <td><?= $user->getUsername() ?></td> 
                 ​​​<td> 
-                    ​​​​<a href="<?= $this->url('users', ['action' => 'edit', 'id' => ↪$user->getId()]) ?>">Edit</a> |
-                    ​​​​<a href="<?= $this->url('users', ['action' => 'delete', 'id' => ↪$user->getId()]) ?>">Remove</a> 
+                    ​​​​<a href="<?= $this->url('users', ['action' => 'edit', 'id' => $user->getId()]) ?>">Edit</a> |
+                    ​​​​<a href="<?= $this->url('users', ['action' => 'delete', 'id' => $user->getId()]) ?>">Remove</a> 
                 ​​​</td>
             ​​</tr>    
         <?php endforeach; ?> 

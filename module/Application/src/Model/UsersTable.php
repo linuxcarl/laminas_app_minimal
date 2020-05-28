@@ -18,7 +18,7 @@ class UsersTable{
 
         return $result;
     }
-    public function getById($id)
+    public function getById($id = 0)
     {
         $id = (int)$id;
         $rowset = $this->tableGateway->select(['id'=>$id]);

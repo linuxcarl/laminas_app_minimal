@@ -6,8 +6,8 @@
     <form action="<?= $this->url('users', ['action' => 'delete', 'id' => $id]) ?>" method="post">
     <div class="form-group">
         <input type="hidden" name="id" value="<?= (int) $user->getId() ?>" />
-            <input type="submit" class="btn btn-danger" name="del" value="Delete" />
-            <input type="submit" class="btn btn-success" name="del" value="Cancel" />
+            <input type="submit" class="btn btn-danger" name="delete" value="Delete" />
+            <input type="submit" class="btn btn-success" name="delete" value="Cancel" />
         </div>
     </form>
 </div>

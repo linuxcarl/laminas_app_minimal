@@ -1,13 +1,12 @@
 <?php 
 
-namespace Application\Controller;
+namespace Application\Form;
 
 class UserForm extends \Laminas\Form\Form
 {
-    public function __contruct($name = 'user')
+    public function __construct($name = 'user')
     {
-        parent::__contruct($name);
-        
+        parent::__construct($name);
         $this->add([
             'name' => 'id',
             'type'=>'hidden'
@@ -32,8 +31,8 @@ class UserForm extends \Laminas\Form\Form
         //by default its also POST
         $this->setAttribute('method','POST');
     }
-}
-private function createForm($ArrayForm=[])
-{
-    # code...
+    private function createForm($ArrayForm=[])
+    {
+        # code...
+    }
 }

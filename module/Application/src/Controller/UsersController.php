@@ -19,6 +19,7 @@ class UsersController extends AbstractActionController
     {
         $view = new ViewModel();
         $rows = $this->usersTable->getAll();
+    
         //$view->serVariable('userRows' $row);
         $view->userRows = $rows;
         return $view;
@@ -85,5 +86,28 @@ class UsersController extends AbstractActionController
         $this->usersTable->save($userRow);
         //redirect back to index action of users controller
         return $this->redirect()->toRoute('users',['action'=>'index']);
+    }
+    public function deleteAction()
+    {
+        $IdUser = (int) $this->params()->fromRoute('id');
+        if (empty($IdUser)) {
+            return $this->redirect()->toRoute('id');
+        }
+        
+        $request = $this->getRequest();
+        
+        if ($request->isPost()) {
+            $delete = $request->getPost('delete','cancel');
+            if($delete == 'Delete'){
+                $IdUser = (int)$request->getPost('id');
+                $this->usersTable->delete($IdUser);
+            }
+            //Redirect tot he userslist
+            return $this->redirect()->toRoute('users');
+        }
+        return [
+            'id'=> $IdUser,
+            'user'=> $this->usersTable->getById($IdUser),
+        ];
     }
 }
