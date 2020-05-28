@@ -6,7 +6,7 @@ use Laminas\Db\TableGateway\TableGateway;
 
 class UsersTable{
 
-    public function __contructor(TableGateway $tableGateway)
+    public function __construct(TableGateway $tableGateway)
     {
         $this->tableGateway = $tableGateway;
     }

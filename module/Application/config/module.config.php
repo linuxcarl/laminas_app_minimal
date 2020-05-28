@@ -41,12 +41,11 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => function($sm) { 
-                ​​​$usersService = $sm->get("Application\Model\UsersTable");
-                ​​​return new Controller\IndexController($usersService);
-            }
+            Controller\IndexController::class => function($sm) {
+                $usersService = $sm->get('Application\Model\UsersTable');
+                return new Controller\IndexController($usersService);
+            },
         ],
-
     ],
     'view_manager' => [
         'display_not_found_reason' => true,

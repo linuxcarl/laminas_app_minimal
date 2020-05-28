@@ -12,13 +12,29 @@ namespace Application\Controller;
 
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
+use Application\Model\User;
+use Application\Model\UsersTable;
+use Laminas\View\View;
 
 class IndexController extends AbstractActionController
 {
+    private $usersTable= null;
+
+    public function __construct(UsersTable $usersTable)
+    {
+        $this->usersTable= $usersTable;
+    }
+
     public function indexAction()
     {
-        
+        $view = new ViewModel();
+        $model= $this->usersTable;
+        $row = $model->getById(1);
+        $view->setVariable('id',$row->getId());
+        $view->setVariable('username',$row->getUsername());
+        $view->setVariable('password', $row->getPassword());
+        $view->row = $row;
        
-        return new ViewModel();
+        return $view;
     }
 }
