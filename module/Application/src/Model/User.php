@@ -2,7 +2,19 @@
 
 namespace Application\Model;
 
-class User{
+use DomainException;
+use Laminas\Filter\StringTrim;
+use Laminas\Filter\StripTags;
+use Laminas\Filter\ToInt;
+use Laminas\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilterAwareInterface;
+use Laminas\InputFilter\InputFilterInterface;
+use Laminas\Validator\StringLength;
+
+use function PHPSTORM_META\map;
+
+class User implements InputFilterAwareInterface
+{
     protected $id;
     protected $username;
     protected $password;
@@ -10,12 +22,11 @@ class User{
     /** 
      * conver in array assoc
      */
-    public function exchangeArray($row=[])
+    public function exchangeArray($row = [])
     {
-        $this->id=(!empty($row['id']))? $row['id']: null;
-        $this->username=(!empty($row['username']))? $row['username']: null;
-        $this->password=(!empty($row['password']))? $row['password']: null;
-
+        $this->id = (!empty($row['id'])) ? $row['id'] : null;
+        $this->username = (!empty($row['username'])) ? $row['username'] : null;
+        $this->password = (!empty($row['password'])) ? $row['password'] : null;
     }
     public function getId()
     {
@@ -29,5 +40,48 @@ class User{
     {
         return $this->password;
     }
-
+    public function getArrayCopy()
+    {
+        return [
+            'id'=> $this->getId(),
+            'username'=> $this->getUsername()
+        ];
+    }
+    public function setInputFilter(InputFilterInterface $inputFilterInterface)
+    {
+        throw new DomainException('This class does not support adding of extra input fileter');
+    }
+    public function getInputFilter()
+    {
+        if ( $this->inputFilter ) {
+            return $this->inputFilter;
+        }
+        $inputFilter = new InputFilter();
+        $inputFilter->add([
+            'name'=>'id',
+            'required'=>true,
+            'filters'=>[
+                ['name'=>ToInt::class]
+            ]
+        ]);
+        $inputFilter->add([
+            'name'=>'username',
+            'required'=>true,
+            'filters'=>[
+                ['name'=>StripTags::class]
+            ],
+            'validators' => [
+                [
+                'name' => StringLength::class,
+                'options' => [
+                    'encoding' => 'UTF-8',
+                    'min' => 1,
+                    'max' => 100,
+                    ],
+                ],
+            ],
+        ]);
+        $this->inputFilter = $inputFilter;
+        return $this->inputFilter;
+    }
 }
