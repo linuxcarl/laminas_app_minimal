@@ -38,7 +38,7 @@ if (file_exists(__DIR__ . '/../config/development.config.php')) {
     $appConfig = ArrayUtils::merge($appConfig, require __DIR__ . '/../config/development.config.php');
 }
 /** * Display all errors when APPLICATION_ENV is development. */
-if ($_SERVER['APPLICATION_ENV'] === 'development') {
+if (@$_SERVER['APPLICATION_ENV'] === 'development') {
     error_reporting(E_ALL);
     ini_set("display_errors", "1");
 }

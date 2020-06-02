@@ -31,32 +31,35 @@ class UsersTable{
 
     public function save(User $userModel, $extraData = null)
     {
-        $data = $UserModel->getArrayCopy();
+        //prepare model's data
+        $data = $userModel->getArrayCopy();
 
         if (!empty($extraData)) {
             $data = array_merge($data, $extraData);
         }
-
+        //determines if we are dealing with existing or new model
         $id = $userModel->getId();
-
-        if (!empty($data)) {
+        
+        //if parameter $data is not passed in, then we will update all properties
+        if (empty($data)) {
             $data = $userModel->getArrayCopy();
         }
-
+        
         if (empty($id)) {
+            //insert new data
             $this->tableGateway->insert($data);
-
+            
             return $this->tableGateway->getLastInsertValue();
         }
-
+        
         if (!$this->getById($id)) {
-            throw new RuntimeException(get_class($userModel). "with id: $id not found");
+            throw new RuntimeException(get_class($userModel) .' with id: '.$id.' not found');
         }
 
-        $this->tableGatway->update($data,['id'=>$id]);
+        //edit existing data
+        $this->tableGateway->update($data, ['id' => $id]);
         return $id;
     }
-
     public function delete($id)
     {
         $this->tableGateway->delete(['id'=> (int) $id ]);

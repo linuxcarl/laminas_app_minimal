@@ -10,7 +10,8 @@
  * NOTE: In practice, this file will typically be INCLUDED in your source
  * control, so do not include passwords or other sensitive information in this
  * file.
- */
+ 
+
 
 return [
     'db' => [
@@ -19,6 +20,15 @@ return [
         'hostname' => 'localhost',
         'driver_options' => [
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+        ],
+    ],
+];*/
+return [
+    'db' => [
+        'driver' => 'Pdo_Mysql',
+        'database' => 'book_laminas',
+        'hostname' => 'dbtest.extrasistemas.com',
+        'driver_options' => [
         ],
     ],
 ];

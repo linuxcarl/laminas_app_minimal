@@ -1,10 +1,10 @@
 <div class="jumbotron">
-    <h1><span class="zf-green">Edit User id: <?= $userId ?></span></h1>
+    <h1><span class="zf-green">Edit User id: <?= $IdUser ?></span></h1>
     <?php
         $userForm->setAttribute('action', $this->url('users',
             [
             'action' => 'edit',
-            'id' => $userId
+            'id' => $IdUser
             ]
         ));
         $userForm->prepare();

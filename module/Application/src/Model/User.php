@@ -1,5 +1,4 @@
 <?php
-
 namespace Application\Model;
 
 use DomainException;
@@ -11,10 +10,9 @@ use Laminas\InputFilter\InputFilterAwareInterface;
 use Laminas\InputFilter\InputFilterInterface;
 use Laminas\Validator\StringLength;
 
-use function PHPSTORM_META\map;
-
 class User implements InputFilterAwareInterface
 {
+    protected $inputFilter;
     protected $id;
     protected $username;
     protected $password;
@@ -53,22 +51,23 @@ class User implements InputFilterAwareInterface
     }
     public function getInputFilter()
     {
-        if ( $this->inputFilter ) {
+        if ($this->inputFilter) {
             return $this->inputFilter;
         }
         $inputFilter = new InputFilter();
         $inputFilter->add([
-            'name'=>'id',
-            'required'=>true,
-            'filters'=>[
-                ['name'=>ToInt::class]
-            ]
+            'name' => 'id',
+            'required' => true,
+            'filters' => [
+                ['name' => ToInt::class],
+            ],
         ]);
         $inputFilter->add([
-            'name'=>'username',
-            'required'=>true,
-            'filters'=>[
-                ['name'=>StripTags::class]
+            'name' => 'username',
+            'required' => true,
+            'filters' => [
+                ['name' => StripTags::class],
+                ['name' => StringTrim::class],
             ],
             'validators' => [
                 [
